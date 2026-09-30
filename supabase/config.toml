@@ -1,0 +1,5 @@
+[functions.seed-admin]
+verify_jwt = true
+
+[functions.generate-presentation]
+verify_jwt = false

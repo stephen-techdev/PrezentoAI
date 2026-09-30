@@ -1,0 +1,60 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Poppins', 'Inter', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        lato: ['Lato', 'sans-serif'],
+        opensans: ['"Open Sans"', 'sans-serif'],
+        nunito: ['Nunito', 'sans-serif'],
+        merriweather: ['Merriweather', 'serif'],
+        playfair: ['"Playfair Display"', 'serif'],
+        mono: ['"Source Code Pro"', 'monospace'],
+      },
+      colors: {
+        brand: {
+          50: '#ecfeff',
+          100: '#cffafe',
+          200: '#a5f3fc',
+          300: '#67e8f9',
+          400: '#22d3ee',
+          500: '#06b6d4',
+          600: '#0891b2',
+          700: '#0e7490',
+          800: '#155e75',
+          900: '#164e63',
+        },
+      },
+      boxShadow: {
+        glow: '0 0 40px -10px rgba(34, 211, 238, 0.45)',
+        card: '0 1px 2px rgba(15,23,42,0.06), 0 8px 24px -8px rgba(15,23,42,0.12)',
+        'card-lg': '0 1px 2px rgba(15,23,42,0.06), 0 24px 48px -16px rgba(15,23,42,0.18)',
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.4s ease-out both',
+        'fade-up': 'fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both',
+        'scale-in': 'scaleIn 0.3s cubic-bezier(0.22,1,0.36,1) both',
+        'slide-in': 'slideIn 0.35s cubic-bezier(0.22,1,0.36,1) both',
+        shimmer: 'shimmer 1.6s linear infinite',
+        float: 'float 6s ease-in-out infinite',
+        'spin-slow': 'spin 1.4s linear infinite',
+      },
+      keyframes: {
+        fadeIn: { '0%': { opacity: 0 }, '100%': { opacity: 1 } },
+        fadeUp: { '0%': { opacity: 0, transform: 'translateY(12px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+        scaleIn: { '0%': { opacity: 0, transform: 'scale(0.96)' }, '100%': { opacity: 1, transform: 'scale(1)' } },
+        slideIn: { '0%': { opacity: 0, transform: 'translateX(16px)' }, '100%': { opacity: 1, transform: 'translateX(0)' } },
+        shimmer: { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
+        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+      },
+    },
+  },
+  plugins: [],
+};

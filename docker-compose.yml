@@ -1,0 +1,63 @@
+# Prezento AI — full stack with Ollama, FastAPI backend, and Vite frontend.
+#
+# Usage:
+#   docker compose up --build
+#
+# Then open http://localhost:5173 (frontend) and http://localhost:8000/docs (API).
+# Ollama runs on http://localhost:11434. The first run will pull the model.
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: prezento-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # Uncomment to use a GPU (requires nvidia-container-toolkit on the host)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    build: ./backend
+    container_name: prezento-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG=false
+      - DATABASE_URL=sqlite:///./data/prezento.db
+      - OLLAMA_HOST=http://ollama:11434
+      - OLLAMA_MODEL=qwen2.5:3b
+      - CORS_ORIGINS=http://localhost:5173,http://localhost:4173,http://localhost:3000
+    volumes:
+      - backend_data:/app/data
+    depends_on:
+      ollama:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: prezento-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  ollama_data:
+  backend_data:
